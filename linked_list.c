@@ -25,19 +25,49 @@ void insert_at_head(struct linked_list *list, size_t value) {
 }
 
 void insert_at_tail(struct linked_list *list, size_t value) {
-  return 0;
+  if (list->head == NULL) {
+    list->head = new_node (value);
+  }
+  struct list_node * p = list->head;
+  while ((p -> next) != NULL) {
+    p = p->next;
+  }
+  p -> next = new_node (value);
 }
 
 size_t remove_from_head(struct linked_list *list) { 
-  return 0;
+  struct list_node * q = list -> head;
+  // if (q == NULL) {
+  //   return NULL;
+  // }
+  if (q -> value == list->head->value){
+    list->head = list->head->next;
+    free (q);
+    return list -> head -> value;
+  }
 }
 
 size_t remove_from_tail(struct linked_list *list) { 
-  return 0;
+  struct list_node * q;
+  struct list_node * p =list ->head;
+  q = p -> next;
+  while ((q != NULL) && ((q -> value) != list->head->value)) {
+    p = p->next;
+    q = q->next;
+  }
+  if (q!=NULL){
+    p->next = q->next;
+    free (q);
+  }
+  return list->head->value;
 }
 
 void free_list(struct linked_list list) {
-  return 0;
+  while (list.head != NULL) {
+    struct list_node * p = list.head->next;
+    free (list.head);
+    list.head = p;
+  }
 }
 
 // Utility function to help you debugging, do not modify
