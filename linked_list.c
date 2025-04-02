@@ -13,11 +13,15 @@
   };
 */
 struct list_node *new_node(size_t value) { 
-  return 0;
+  struct list_node * NewNode = malloc(sizeof(struct list_node));
+  NewNode->value = value;
+  NewNode->next = NULL;
+  return NewNode;
 }
 
 void insert_at_head(struct linked_list *list, size_t value) {
-  return 0;
+  struct list_node * ptr = new_node (value);
+  list -> head -> next = ptr;
 }
 
 void insert_at_tail(struct linked_list *list, size_t value) {
