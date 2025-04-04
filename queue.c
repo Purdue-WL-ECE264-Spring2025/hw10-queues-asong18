@@ -21,36 +21,32 @@ int number_of_moves(struct game_state start) {
             cur.tiles[1][0] == 5 && cur.tiles[1][1] == 6 && cur.tiles[1][2] == 7 && cur.tiles[1][3] == 8 &&
             cur.tiles[2][0] == 9 && cur.tiles[2][1] == 10 && cur.tiles[2][2] == 11 && cur.tiles[2][3] == 12 &&
             cur.tiles[3][0] == 13 && cur.tiles[3][1] == 14 && cur.tiles[3][2] == 15 && cur.tiles[3][3] == 0){
-            /*
-            while (q.data.head != NULL) {
-                dequeue(&q);
-            }
-            */
             return cur.num_steps;
         } else {
             struct game_state NextMove = cur;
             move_up(&NextMove);
-            if (NextMove.empty_row < cur.empty_row){
+            if (NextMove.empty_row != cur.empty_row){
+                NextMove.num_steps = cur.num_steps + 1;
                 enqueue(&q, NextMove);
-                NextMove.num_steps++;
+                
             }
             NextMove = cur;
             move_down(&NextMove);
-            if (NextMove.empty_row > cur.empty_row){
+            if (NextMove.empty_row != cur.empty_row){
+                NextMove.num_steps = cur.num_steps + 1;
                 enqueue(&q, NextMove);
-                NextMove.num_steps++;
             }
             NextMove = cur;
             move_left(&NextMove);
-            if (NextMove.empty_col < cur.empty_col) {
+            if (NextMove.empty_col != cur.empty_col) {
+                NextMove.num_steps = cur.num_steps + 1;
                 enqueue(&q, NextMove);
-                NextMove.num_steps++;
             }
             NextMove = cur;
             move_right(&NextMove);
-            if (NextMove.empty_col > cur.empty_col) {
+            if (NextMove.empty_col != cur.empty_col) {
+                NextMove.num_steps = cur.num_steps + 1;
                 enqueue(&q, NextMove);
-                NextMove.num_steps ++;
             }
         }
     }
