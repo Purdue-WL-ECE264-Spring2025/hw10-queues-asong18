@@ -18,6 +18,7 @@ int number_of_moves(struct game_state start) {
     q.data.head = NULL;
     enqueue (&q, start);
     struct linked_list VisitedNodes;
+    VisitedNodes.head=NULL;
     insert_at_head(&VisitedNodes, serialize(start));
     while (q.data.head != NULL) {
         struct game_state cur = dequeue (&q);
@@ -32,51 +33,51 @@ int number_of_moves(struct game_state start) {
             struct game_state child = cur;
             move_up(&child);
             if (child.empty_row != cur.empty_row){
-                uint64_t value = serialize(child);
-                if (!VisitedBefore(&VisitedNodes, value)) {
+                uint64_t val = serialize(child);
+                if (!VisitedBefore(&VisitedNodes, val)) {
                     child.num_steps = cur.num_steps + 1;
                     enqueue(&q, child);
-                    insert_at_head(&VisitedNodes, value); 
+                    insert_at_head(&VisitedNodes, val); 
                 }
             }
             child = cur;
             move_down(&child);
             if (child.empty_row != cur.empty_row){
-                uint64_t value = serialize(child);
-                if (!VisitedBefore(&VisitedNodes, value)) {
+                uint64_t val = serialize(child);
+                if (!VisitedBefore(&VisitedNodes, val)) {
                     child.num_steps = cur.num_steps + 1;
                     enqueue(&q, child);
-                    insert_at_head(&VisitedNodes, value); 
+                    insert_at_head(&VisitedNodes, val); 
                 }
             }
             child = cur;
             move_left(&child);
             if (child.empty_col != cur.empty_col) {
-                uint64_t value = serialize(child);
-                if (!VisitedBefore(&VisitedNodes, value)) {
+                uint64_t val = serialize(child);
+                if (!VisitedBefore(&VisitedNodes, val)) {
                     child.num_steps = cur.num_steps + 1;
                     enqueue(&q, child);
-                    insert_at_head(&VisitedNodes, value); 
+                    insert_at_head(&VisitedNodes, val); 
                 }
             }
             child = cur;
             move_right(&child);
             if (child.empty_col != cur.empty_col) {
-                uint64_t value = serialize(child);
-                if (!VisitedBefore(&VisitedNodes, value)) {
+                uint64_t val = serialize(child);
+                if (!VisitedBefore(&VisitedNodes, val)) {
                     child.num_steps = cur.num_steps + 1;
                     enqueue(&q, child);
-                    insert_at_head(&VisitedNodes, value); 
+                    insert_at_head(&VisitedNodes, val); 
                 }
             }
         }
     }
     return 0;
 }
-int VisitedBefore (struct linked_list * list, uint64_t value){
+int VisitedBefore (struct linked_list * list, uint64_t val){
     struct list_node *current = list->head;
     while (current != NULL){
-        if (current->value == value){
+        if (current->value == val){
             return 1;
         }
         current = current->next;
